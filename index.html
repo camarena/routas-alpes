@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alpine Moto Trip</title>
+    <meta charset="utf-8">
+    <!-- Crucial for iPhone scaling and preventing accidental zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>
+        /* iOS-specific height fixes */
+        html, body {
+            margin: 0; padding: 0; height: 100%; height: -webkit-fill-available; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: #121212; color: #e0e0e0; display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        /* Content Area Container */
+        .content-area { flex: 1; position: relative; overflow: hidden; background: #121212; }
+        
+        .tab-content { 
+            display: none; height: 100%; width: 100%; position: absolute; top: 0; left: 0; 
+            overflow-y: auto; -webkit-overflow-scrolling: touch; 
+        }
+        .tab-content.active { display: block; }
+
+        /* Map styling for mobile */
+        .map-container { height: 100%; width: 100%; background: #222; }
+        
+        .leaflet-control-layers { 
+            background: rgba(30, 30, 30, 0.95) !important; color: white !important; 
+            border: 1px solid #444 !important; border-radius: 8px !important; padding: 6px !important;
+            max-width: 75vw; /* Prevents control box from dominating small screens */
+        }
+        .leaflet-control-layers-overlays label { font-size: 13px; margin-bottom: 6px; }
+
+        /* Text Panes (Mobile Optimized) */
+        .text-pane { padding: 20px 20px 40px 20px; font-size: 16px; line-height: 1.5; }
+        h2 { color: #4facfe; border-bottom: 1px solid #4facfe; padding-bottom: 8px; font-size: 22px; margin-top: 10px; }
+        h3 { color: #fff; margin-top: 25px; font-size: 18px; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 15px; }
+        strong { color: #fff; }
+
+        /* Bottom App-like Navigation Bar */
+        .tab-bar {
+            display: flex; background: #1e1e1e; border-top: 1px solid #333;
+            /* Respects the iPhone home indicator area */
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .tab-button {
+            flex: 1; background: transparent; color: #888; border: none; padding: 12px 0; 
+            font-size: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;
+        }
+        .tab-button.active { color: #4facfe; }
+        
+        /* Simple CSS Icons */
+        .icon { font-size: 20px; }
+    </style>
+</head>
+<body>
+
+    <!-- Content Area -->
+    <div class="content-area">
+        <!-- Pane A -->
+        <div id="pane-a" class="tab-content active">
+            <div id="mapA" class="map-container"></div>
+        </div>
+
+        <!-- Pane B -->
+        <div id="pane-b" class="tab-content">
+            <div id="mapB" class="map-container"></div>
+        </div>
+
+        <!-- Pane C -->
+        <div id="pane-c" class="tab-content">
+            <div class="text-pane">
+                <h2>The Verdict: Route A vs. B</h2>
+                <p>For a pure, unforgettable motorcycle experience, <strong>Route B (The Grand Loop)</strong> is the clear winner.</p>
+                
+                <h3>1. Riding Dynamics</h3>
+                <ul>
+                    <li><strong>Route A (Stop-and-Go):</strong> Doubling back through the Maurienne Valley means time spent on transit roads. The climbs are spectacular, but the connecting valleys can feel like a chore.</li>
+                    <li><strong>Route B (The Rhythm):</strong> An incredible evolution of riding. You get tight technical switchbacks, fast sweepers near Barcelonnette, and wide-open Italian plains. It prevents "hairpin fatigue."</li>
+                </ul>
+
+                <h3>2. Scenery & Visuals</h3>
+                <ul>
+                    <li><strong>Route A:</strong> Beautiful, but the landscape stays relatively similar (green valleys, white peaks) for the trip's duration.</li>
+                    <li><strong>Route B:</strong> Crosses micro-climates. You move from green mountains to the arid, sun-baked gorges of the Southern Alps, then into Italy for massive valley views before hitting jagged glaciated peaks again.</li>
+                </ul>
+
+                <h3>3. Traffic</h3>
+                <ul>
+                    <li><strong>Route A:</strong> Chamonix, Évian, and the northern stretches are major hubs. Expect RVs and traffic.</li>
+                    <li><strong>Route B:</strong> By diving south and crossing into Italy, you get way off the tourist track. Roads are wider, less congested, and purpose-built for cornering.</li>
+                </ul>
+
+                <h3>Conclusion</h3>
+                <p>Route A is a great sightseeing tour. <strong>Route B is a driver's route.</strong> It links Europe's best roads into a seamless loop with no overlapping segments.</p>
+            </div>
+        </div>
+
+        <!-- Pane D -->
+        <div id="pane-d" class="tab-content">
+            <div class="text-pane">
+                <h2>Le Verdict : A vs. B</h2>
+                <p>Pour une expérience moto inoubliable, <strong>l'Itinéraire B (La Grande Boucle)</strong> est le grand gagnant.</p>
+                
+                <h3>1. Dynamique de Conduite</h3>
+                <ul>
+                    <li><strong>Itinéraire A :</strong> Le demi-tour par la Maurienne implique des liaisons longues. Les montées sont belles, mais les vallées peuvent lasser.</li>
+                    <li><strong>Itinéraire B :</strong> Une évolution incroyable. Vous passez des lacets techniques aux grandes courbes rapides de l'Ubaye, et aux étendues italiennes. Parfait pour éviter la "fatigue des épingles".</li>
+                </ul>
+
+                <h3>2. Paysages</h3>
+                <ul>
+                    <li><strong>Itinéraire A :</strong> Magnifique, mais le paysage reste similaire (vallées vertes, sommets enneigés) tout le long.</li>
+                    <li><strong>Itinéraire B :</strong> Traverse des microclimats. Des montagnes verdoyantes, vous passez aux gorges arides des Alpes du Sud, puis à l'Italie, avant de retrouver les glaciers. Variété inégalée.</li>
+                </ul>
+
+                <h3>3. Trafic</h3>
+                <ul>
+                    <li><strong>Itinéraire A :</strong> Chamonix et Évian sont très touristiques. Attendez-vous à des camping-cars.</li>
+                    <li><strong>Itinéraire B :</strong> En plongeant au sud, vous fuyez la foule. Les routes sont plus larges et parfaites pour prendre de l'angle.</li>
+                </ul>
+
+                <h3>Conclusion</h3>
+                <p>L'Itinéraire A est un beau circuit touristique. <strong>L'Itinéraire B est fait pour le pilotage.</strong> Aucune route redondante, que du plaisir.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom App Navigation -->
+    <div class="tab-bar">
+        <button class="tab-button active" onclick="openTab('pane-a', this)">
+            <span class="icon">🗺️</span><span>Route A</span>
+        </button>
+        <button class="tab-button" onclick="openTab('pane-b', this)">
+            <span class="icon">🏔️</span><span>Route B</span>
+        </button>
+        <button class="tab-button" onclick="openTab('pane-c', this)">
+            <span class="icon">🇬🇧</span><span>English</span>
+        </button>
+        <button class="tab-button" onclick="openTab('pane-d', this)">
+            <span class="icon">🇫🇷</span><span>Français</span>
+        </button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        function openTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            btnElement.classList.add('active');
+            
+            // Re-render map tiles when unhidden to prevent grey boxes
+            if (tabId === 'pane-a') setTimeout(() => mapA.invalidateSize(), 50);
+            if (tabId === 'pane-b') setTimeout(() => mapB.invalidateSize(), 50);
+        }
+
+        function loadRoutes(mapInstance, layerControl, routeDays, overnights) {
+            routeDays.forEach(day => {
+                const dayLayer = L.layerGroup().addTo(mapInstance);
+                const label = `<span style="color: ${day.color}; margin-right: 6px;">■</span> ${day.name}`;
+                layerControl.addOverlay(dayLayer, label);
+                
+                const coordString = day.coords.map(c => `${c[0]},${c[1]}`).join(';');
+                const url = `https://router.project-osrm.org/route/v1/driving/${coordString}?overview=full&geometries=geojson`;
+                
+                fetch(url).then(res => res.json()).then(data => {
+                    if (data.routes && data.routes.length > 0) {
+                        L.geoJSON(data.routes[0].geometry, { style: { color: day.color, weight: 6, opacity: 0.85 } })
+                         .bindPopup(`<strong>${day.name}</strong><br>${(data.routes[0].distance / 1000).toFixed(1)} km`).addTo(dayLayer);
+                    }
+                });
+            });
+
+            overnights.forEach(stop => {
+                L.circleMarker(stop.coords, {
+                    radius: stop.name.includes("📍") ? 8 : 5, 
+                    color: '#111', 
+                    fillColor: stop.name.includes("📍") ? '#ffd700' : (stop.name.includes("Saved") ? '#00ffff' : '#fff'), 
+                    fillOpacity: 1, weight: 2
+                }).bindPopup(`<strong>${stop.name}</strong>`).addTo(mapInstance);
+            });
+        }
+
+        // --- MAP A ---
+        // Zoom levels slightly reduced for narrow iPhone screens
+        const mapA = L.map('mapA', { zoomControl: false }).setView([45.2, 6.8], 7);
+        L.control.zoom({ position: 'topright' }).addTo(mapA);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(mapA);
+        const controlA = L.control.layers(null, null, { collapsed: true, position: 'topleft' }).addTo(mapA);
+
+        const daysA = [
+            { name: "Day 1", color: "#e6194B", coords: [[6.46, 45.72], [6.57, 45.72], [6.69, 45.69], [6.77, 45.62], [6.67, 45.20]] },
+            { name: "Day 2", color: "#f58231", coords: [[6.67, 45.20], [6.47, 45.21], [6.41, 45.06], [6.73, 44.82], [6.65, 44.66]] },
+            { name: "Day 3", color: "#3cb44b", coords: [[6.65, 44.66], [6.63, 44.89], [6.66, 45.03], [6.70, 45.08], [7.05, 45.14]] },
+            { name: "Day 4", color: "#4363d8", coords: [[7.05, 45.14], [6.93, 45.26], [6.67, 45.20], [6.39, 45.67], [6.87, 45.92]] },
+            { name: "Day 5", color: "#911eb4", coords: [[6.87, 45.92], [7.07, 46.10], [6.84, 46.39], [6.58, 46.40]] },
+            { name: "Day 6", color: "#f032e6", coords: [[6.58, 46.40], [6.47, 46.37], [6.10, 46.03], [6.12, 45.90]] }
+        ];
+
+        const overnightsA = [
+            { name: "Queige", coords: [45.72, 6.46] }, { name: "Modane", coords: [45.20, 6.67] },
+            { name: "Guillestre", coords: [44.66, 6.65] }, { name: "Susa", coords: [45.14, 7.05] },
+            { name: "Chamonix", coords: [45.92, 6.87] }, { name: "Évian", coords: [46.40, 6.58] },
+            { name: "Annecy", coords: [45.90, 6.12] }, { name: "📍 Barcelonnette", coords: [44.3867, 6.6531] },
+            { name: "📍 Saved (Peisey-Nancroix)", coords: [45.5767, 6.7150] }
+        ];
+        loadRoutes(mapA, controlA, daysA, overnightsA);
+
+        // --- MAP B ---
+        const mapB = L.map('mapB', { zoomControl: false }).setView([45.1, 6.8], 7);
+        L.control.zoom({ position: 'topright' }).addTo(mapB);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(mapB);
+        const controlB = L.control.layers(null, null, { collapsed: true, position: 'topleft' }).addTo(mapB);
+
+        const daysB = [
+            { name: "Day 1", color: "#e6194B", coords: [[6.46, 45.72], [6.39, 45.67], [6.38, 45.34], [6.35, 45.27], [6.43, 45.16]] },
+            { name: "Day 2", color: "#f58231", coords: [[6.43, 45.16], [6.40, 45.06], [6.63, 44.89], [6.73, 44.82], [6.65, 44.66], [6.69, 44.56], [6.65, 44.38]] },
+            { name: "Day 3", color: "#3cb44b", coords: [[6.65, 44.38], [6.93, 44.42], [7.44, 44.33], [7.49, 44.64], [7.05, 45.14]] },
+            { name: "Day 4", color: "#4363d8", coords: [[7.05, 45.14], [6.93, 45.26], [6.87, 45.28], [7.03, 45.42], [6.77, 45.62]] },
+            { name: "Day 5", color: "#911eb4", coords: [[6.77, 45.62], [6.69, 45.69], [6.57, 45.72], [6.53, 45.76], [6.42, 45.90]] },
+            { name: "Day 6", color: "#f032e6", coords: [[6.42, 45.90], [6.12, 45.90]] }
+        ];
+
+        const overnightsB = [
+            { name: "Queige", coords: [45.72, 6.46] }, { name: "Valloire", coords: [45.16, 6.43] },
+            { name: "📍 Barcelonnette", coords: [44.3867, 6.6531] }, { name: "Susa", coords: [45.14, 7.05] },
+            { name: "Bourg-St-Maurice", coords: [45.62, 6.77] }, { name: "La Clusaz", coords: [45.90, 6.42] },
+            { name: "Annecy", coords: [45.90, 6.12] }, { name: "📍 Saved (Peisey-Nancroix)", coords: [45.5767, 6.7150] } 
+        ];
+        loadRoutes(mapB, controlB, daysB, overnightsB);
+    </script>
+</body>
+</html>
