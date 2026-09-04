@@ -3,18 +3,15 @@
 <head>
     <title>Alpine Moto Trip</title>
     <meta charset="utf-8">
-    <!-- Crucial for iPhone scaling and preventing accidental zooming -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     <style>
-        /* iOS-specific height fixes */
         html, body {
             margin: 0; padding: 0; height: 100%; height: -webkit-fill-available; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             background: #121212; color: #e0e0e0; display: flex; flex-direction: column; overflow: hidden;
         }
 
-        /* Content Area Container */
         .content-area { flex: 1; position: relative; overflow: hidden; background: #121212; }
         
         .tab-content { 
@@ -23,28 +20,27 @@
         }
         .tab-content.active { display: block; }
 
-        /* Map styling for mobile */
         .map-container { height: 100%; width: 100%; background: #222; }
         
+        /* Uncollapsed Mobile Layer Controls */
         .leaflet-control-layers { 
             background: rgba(30, 30, 30, 0.95) !important; color: white !important; 
-            border: 1px solid #444 !important; border-radius: 8px !important; padding: 6px !important;
-            max-width: 75vw; /* Prevents control box from dominating small screens */
+            border: 1px solid #555 !important; border-radius: 8px !important; padding: 8px !important;
+            max-width: 65vw; max-height: 40vh; overflow-y: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
         }
-        .leaflet-control-layers-overlays label { font-size: 13px; margin-bottom: 6px; }
+        .leaflet-control-layers-overlays label { display: flex; align-items: center; font-size: 13px; margin-bottom: 6px; }
+        .leaflet-control-layers-selector { margin-right: 8px !important; }
 
-        /* Text Panes (Mobile Optimized) */
-        .text-pane { padding: 20px 20px 40px 20px; font-size: 16px; line-height: 1.5; }
-        h2 { color: #4facfe; border-bottom: 1px solid #4facfe; padding-bottom: 8px; font-size: 22px; margin-top: 10px; }
-        h3 { color: #fff; margin-top: 25px; font-size: 18px; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 15px; }
+        /* Full Text Panes */
+        .text-pane { padding: 20px 20px 40px 20px; font-size: 16px; line-height: 1.6; max-width: 900px; margin: 0 auto; }
+        h2 { color: #4facfe; border-bottom: 1px solid #4facfe; padding-bottom: 10px; margin-top: 10px; }
+        h3 { color: #fff; margin-top: 30px; }
+        p, li { font-size: 16px; margin-bottom: 15px; }
         strong { color: #fff; }
 
-        /* Bottom App-like Navigation Bar */
+        /* iOS Tab Navigation */
         .tab-bar {
             display: flex; background: #1e1e1e; border-top: 1px solid #333;
-            /* Respects the iPhone home indicator area */
             padding-bottom: env(safe-area-inset-bottom);
         }
         .tab-button {
@@ -52,85 +48,84 @@
             font-size: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;
         }
         .tab-button.active { color: #4facfe; }
-        
-        /* Simple CSS Icons */
         .icon { font-size: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- Content Area -->
     <div class="content-area">
-        <!-- Pane A -->
+        <!-- Pane A: Route A Map -->
         <div id="pane-a" class="tab-content active">
             <div id="mapA" class="map-container"></div>
         </div>
 
-        <!-- Pane B -->
+        <!-- Pane B: Route B Map -->
         <div id="pane-b" class="tab-content">
             <div id="mapB" class="map-container"></div>
         </div>
 
-        <!-- Pane C -->
+        <!-- Pane C: English Text -->
         <div id="pane-c" class="tab-content">
             <div class="text-pane">
-                <h2>The Verdict: Route A vs. B</h2>
-                <p>For a pure, unforgettable motorcycle experience, <strong>Route B (The Grand Loop)</strong> is the clear winner.</p>
+                <h2>The Verdict: Route A vs. Route B</h2>
+                <p>For a pure, unforgettable motorcycle experience, <strong>Route B (The Grand Southern Loop)</strong> is the clear winner.</p>
+                <p>While Route A hits some famous landmarks, Route B offers vastly superior riding dynamics, completely eliminates backtracking, and gives you a true "expedition" feel where every single mile of asphalt is brand new. Here is a breakdown of why Route B takes the crown for fun and scenery:</p>
                 
-                <h3>1. Riding Dynamics</h3>
+                <h3>1. The Riding Dynamics (Corners & Flow)</h3>
                 <ul>
-                    <li><strong>Route A (Stop-and-Go):</strong> Doubling back through the Maurienne Valley means time spent on transit roads. The climbs are spectacular, but the connecting valleys can feel like a chore.</li>
-                    <li><strong>Route B (The Rhythm):</strong> An incredible evolution of riding. You get tight technical switchbacks, fast sweepers near Barcelonnette, and wide-open Italian plains. It prevents "hairpin fatigue."</li>
+                    <li><strong>Route A (The Stop-and-Go):</strong> Because Route A doubles back through the Maurienne Valley, you spend a lot of time on transit roads to get between the famous passes. The mountain climbs (like the Galibier) are spectacular, but the connecting valleys can feel like a chore.</li>
+                    <li><strong>Route B (The Rhythm):</strong> Route B provides an incredible evolution of riding styles. You get the ultra-tight, technical switchbacks of the high French Alps (Col de la Madeleine, Col de l'Iseran), the incredibly fast, flowing sweepers of the southern Ubaye Valley near Barcelonnette, and the wide-open, throttle-friendly stretches through the Italian plains. It keeps you on your toes and prevents "hairpin fatigue."</li>
                 </ul>
 
-                <h3>2. Scenery & Visuals</h3>
+                <h3>2. The Scenery (Visual Diversity)</h3>
                 <ul>
-                    <li><strong>Route A:</strong> Beautiful, but the landscape stays relatively similar (green valleys, white peaks) for the trip's duration.</li>
-                    <li><strong>Route B:</strong> Crosses micro-climates. You move from green mountains to the arid, sun-baked gorges of the Southern Alps, then into Italy for massive valley views before hitting jagged glaciated peaks again.</li>
+                    <li><strong>Route A (The Classics):</strong> You get up close and personal with the Mont Blanc massif in Chamonix and cruise the elegant shores of Lake Geneva. It is beautiful, but the landscape stays relatively similar (lush green valleys and white peaks) for the duration of the trip.</li>
+                    <li><strong>Route B (The Shape-Shifter):</strong> This route crosses micro-climates. You start in the lush, green Beaufortain mountains, but by the time you reach Barcelonnette, the landscape transforms into the arid, rocky, sun-baked gorges of the Southern Alps (which feels almost like riding through a mountainous Provence). The next day, you cross into Italy for expansive valley views, before climbing back into the jagged, glaciated peaks of the Vanoise National Park. The visual variety is unmatched.</li>
                 </ul>
 
-                <h3>3. Traffic</h3>
+                <h3>3. Traffic and Frustration</h3>
                 <ul>
-                    <li><strong>Route A:</strong> Chamonix, Évian, and the northern stretches are major hubs. Expect RVs and traffic.</li>
-                    <li><strong>Route B:</strong> By diving south and crossing into Italy, you get way off the tourist track. Roads are wider, less congested, and purpose-built for cornering.</li>
+                    <li><strong>Route A:</strong> Places like Chamonix, Évian, and the northern stretches of Route A are major tourist hubs. You will likely encounter heavy traffic, slow-moving RVs, and congested roundabouts, especially around Lake Geneva.</li>
+                    <li><strong>Route B:</strong> By diving south to Barcelonnette and crossing the Col de Larche into Italy, you get much further off the beaten tourist track. The roads in the southern Alps are wider, less congested, and purpose-built for leaning into corners without a camper van ruining your line.</li>
                 </ul>
 
-                <h3>Conclusion</h3>
-                <p>Route A is a great sightseeing tour. <strong>Route B is a driver's route.</strong> It links Europe's best roads into a seamless loop with no overlapping segments.</p>
+                <h3>The Verdict</h3>
+                <p>Route A is a great sightseeing tour that happens to be on a motorcycle. <strong>Route B is a driver's route.</strong> It strings together some of the best riding roads in Europe into a seamless loop that respects your 3-to-4-hour daily limit while feeding you completely different scenery every morning.</p>
             </div>
         </div>
 
-        <!-- Pane D -->
+        <!-- Pane D: French Text -->
         <div id="pane-d" class="tab-content">
             <div class="text-pane">
-                <h2>Le Verdict : A vs. B</h2>
-                <p>Pour une expérience moto inoubliable, <strong>l'Itinéraire B (La Grande Boucle)</strong> est le grand gagnant.</p>
+                <h2>Le Verdict : Itinéraire A vs. Itinéraire B</h2>
+                <p>Pour une expérience moto pure et inoubliable, <strong>l'Itinéraire B (La Grande Boucle Sud)</strong> est le grand gagnant.</p>
+                <p>Bien que l'Itinéraire A passe par quelques sites célèbres, l'Itinéraire B offre une dynamique de conduite nettement supérieure, élimine complètement les retours en arrière et vous donne un véritable sentiment d'"expédition" où chaque kilomètre d'asphalte est totalement nouveau. Voici pourquoi l'Itinéraire B l'emporte pour le plaisir et les paysages :</p>
                 
-                <h3>1. Dynamique de Conduite</h3>
+                <h3>1. La Dynamique de Conduite (Virages et Fluidité)</h3>
                 <ul>
-                    <li><strong>Itinéraire A :</strong> Le demi-tour par la Maurienne implique des liaisons longues. Les montées sont belles, mais les vallées peuvent lasser.</li>
-                    <li><strong>Itinéraire B :</strong> Une évolution incroyable. Vous passez des lacets techniques aux grandes courbes rapides de l'Ubaye, et aux étendues italiennes. Parfait pour éviter la "fatigue des épingles".</li>
+                    <li><strong>Itinéraire A (Le Stop-and-Go) :</strong> Parce que l'Itinéraire A fait demi-tour par la vallée de la Maurienne, vous passez beaucoup de temps sur des routes de liaison pour relier les cols célèbres. Les montées sont spectaculaires, mais les vallées de connexion peuvent ressembler à une corvée.</li>
+                    <li><strong>Itinéraire B (Le Rythme) :</strong> L'Itinéraire B offre une évolution incroyable des styles de conduite. Vous affrontez les lacets ultra-serrés et techniques des Hautes-Alpes françaises, les grandes courbes rapides et fluides de la vallée de l'Ubaye près de Barcelonnette, et les vastes étendues des plaines italiennes. Cela vous maintient en alerte et évite la "fatigue des virages en épingle".</li>
                 </ul>
 
-                <h3>2. Paysages</h3>
+                <h3>2. Les Paysages (Diversité Visuelle)</h3>
                 <ul>
-                    <li><strong>Itinéraire A :</strong> Magnifique, mais le paysage reste similaire (vallées vertes, sommets enneigés) tout le long.</li>
-                    <li><strong>Itinéraire B :</strong> Traverse des microclimats. Des montagnes verdoyantes, vous passez aux gorges arides des Alpes du Sud, puis à l'Italie, avant de retrouver les glaciers. Variété inégalée.</li>
+                    <li><strong>Itinéraire A (Les Classiques) :</strong> Vous vous approchez au plus près du massif du Mont-Blanc à Chamonix et parcourez les rives élégantes du lac Léman. C'est magnifique, mais le paysage reste relativement similaire (vallées verdoyantes et sommets enneigés) pendant tout le voyage.</li>
+                    <li><strong>Itinéraire B (Le Métamorphe) :</strong> Cet itinéraire traverse des microclimats. Vous commencez dans des montagnes verdoyantes, mais au moment où vous atteignez Barcelonnette, le paysage se transforme en gorges arides, rocheuses et baignées de soleil des Alpes du Sud. Le lendemain, vous entrez en Italie avec des vues imprenables sur les vallées, avant de remonter vers des sommets glaciaires et déchiquetés. La variété visuelle est inégalée.</li>
                 </ul>
 
-                <h3>3. Trafic</h3>
+                <h3>3. Trafic et Frustrations</h3>
                 <ul>
-                    <li><strong>Itinéraire A :</strong> Chamonix et Évian sont très touristiques. Attendez-vous à des camping-cars.</li>
-                    <li><strong>Itinéraire B :</strong> En plongeant au sud, vous fuyez la foule. Les routes sont plus larges et parfaites pour prendre de l'angle.</li>
+                    <li><strong>Itinéraire A :</strong> Des endroits comme Chamonix, Évian et les tronçons nord sont des pôles touristiques majeurs. Vous rencontrerez probablement un trafic dense, des camping-cars lents et des ronds-points encombrés, surtout autour du lac Léman.</li>
+                    <li><strong>Itinéraire B :</strong> En plongeant vers le sud jusqu'à Barcelonnette et en traversant vers l'Italie, vous vous éloignez beaucoup plus des sentiers touristiques battus. Les routes des Alpes du Sud sont plus larges, moins congestionnées et conçues pour se pencher dans les virages sans qu'un camping-car ne gâche votre trajectoire.</li>
                 </ul>
 
                 <h3>Conclusion</h3>
-                <p>L'Itinéraire A est un beau circuit touristique. <strong>L'Itinéraire B est fait pour le pilotage.</strong> Aucune route redondante, que du plaisir.</p>
+                <p>L'Itinéraire A est un excellent circuit touristique qui se fait à moto. <strong>L'Itinéraire B est un itinéraire de pilote.</strong> Il relie certaines des meilleures routes d'Europe en une boucle continue qui respecte votre limite quotidienne tout en vous offrant des paysages complètement différents chaque matin.</p>
             </div>
         </div>
     </div>
 
-    <!-- Bottom App Navigation -->
+    <!-- Bottom Navigation -->
     <div class="tab-bar">
         <button class="tab-button active" onclick="openTab('pane-a', this)">
             <span class="icon">🗺️</span><span>Route A</span>
@@ -155,15 +150,22 @@
             document.getElementById(tabId).classList.add('active');
             btnElement.classList.add('active');
             
-            // Re-render map tiles when unhidden to prevent grey boxes
-            if (tabId === 'pane-a') setTimeout(() => mapA.invalidateSize(), 50);
-            if (tabId === 'pane-b') setTimeout(() => mapB.invalidateSize(), 50);
+            // Force rendering refresh for mobile Safari
+            setTimeout(() => {
+                if (tabId === 'pane-a') mapA.invalidateSize();
+                if (tabId === 'pane-b') mapB.invalidateSize();
+            }, 100);
+            
+            setTimeout(() => {
+                if (tabId === 'pane-a') mapA.invalidateSize();
+                if (tabId === 'pane-b') mapB.invalidateSize();
+            }, 400);
         }
 
         function loadRoutes(mapInstance, layerControl, routeDays, overnights) {
             routeDays.forEach(day => {
                 const dayLayer = L.layerGroup().addTo(mapInstance);
-                const label = `<span style="color: ${day.color}; margin-right: 6px;">■</span> ${day.name}`;
+                const label = `<span style="color: ${day.color}; margin-right: 6px; font-size: 16px;">■</span> ${day.name}`;
                 layerControl.addOverlay(dayLayer, label);
                 
                 const coordString = day.coords.map(c => `${c[0]},${c[1]}`).join(';');
@@ -179,7 +181,7 @@
 
             overnights.forEach(stop => {
                 L.circleMarker(stop.coords, {
-                    radius: stop.name.includes("📍") ? 8 : 5, 
+                    radius: stop.name.includes("📍") ? 9 : 6, 
                     color: '#111', 
                     fillColor: stop.name.includes("📍") ? '#ffd700' : (stop.name.includes("Saved") ? '#00ffff' : '#fff'), 
                     fillOpacity: 1, weight: 2
@@ -188,11 +190,11 @@
         }
 
         // --- MAP A ---
-        // Zoom levels slightly reduced for narrow iPhone screens
         const mapA = L.map('mapA', { zoomControl: false }).setView([45.2, 6.8], 7);
-        L.control.zoom({ position: 'topright' }).addTo(mapA);
+        L.control.zoom({ position: 'topleft' }).addTo(mapA);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(mapA);
-        const controlA = L.control.layers(null, null, { collapsed: true, position: 'topleft' }).addTo(mapA);
+        // Explicitly uncollapsed for mobile visibility
+        const controlA = L.control.layers(null, null, { collapsed: false, position: 'topright' }).addTo(mapA);
 
         const daysA = [
             { name: "Day 1", color: "#e6194B", coords: [[6.46, 45.72], [6.57, 45.72], [6.69, 45.69], [6.77, 45.62], [6.67, 45.20]] },
@@ -214,9 +216,10 @@
 
         // --- MAP B ---
         const mapB = L.map('mapB', { zoomControl: false }).setView([45.1, 6.8], 7);
-        L.control.zoom({ position: 'topright' }).addTo(mapB);
+        L.control.zoom({ position: 'topleft' }).addTo(mapB);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(mapB);
-        const controlB = L.control.layers(null, null, { collapsed: true, position: 'topleft' }).addTo(mapB);
+        // Explicitly uncollapsed for mobile visibility
+        const controlB = L.control.layers(null, null, { collapsed: false, position: 'topright' }).addTo(mapB);
 
         const daysB = [
             { name: "Day 1", color: "#e6194B", coords: [[6.46, 45.72], [6.39, 45.67], [6.38, 45.34], [6.35, 45.27], [6.43, 45.16]] },
