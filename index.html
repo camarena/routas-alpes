@@ -25,27 +25,20 @@
         /* Uncollapsed Mobile Layer Controls */
         .leaflet-control-layers { 
             background: rgba(30, 30, 30, 0.95) !important; color: white !important; 
-            border: 1px solid #555 !important; border-radius: 8px !important; padding: 8px !important;
-            max-width: 65vw; max-height: 40vh; overflow-y: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+            border: 1px solid #555 !important; border-radius: 8px !important; padding: 6px !important;
+            max-width: 60vw; max-height: 35vh; overflow-y: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
         }
-        .leaflet-control-layers-overlays label { display: flex; align-items: center; font-size: 13px; margin-bottom: 6px; }
-        .leaflet-control-layers-selector { margin-right: 8px !important; }
+        .leaflet-control-layers-overlays label { display: flex; align-items: center; font-size: 12px; margin-bottom: 4px; }
+        .leaflet-control-layers-selector { margin-right: 6px !important; }
 
-        /* Full Text Panes */
-        .text-pane { padding: 20px 20px 40px 20px; font-size: 16px; line-height: 1.6; max-width: 900px; margin: 0 auto; }
-        h2 { color: #4facfe; border-bottom: 1px solid #4facfe; padding-bottom: 10px; margin-top: 10px; }
-        h3 { color: #fff; margin-top: 30px; }
-        p, li { font-size: 16px; margin-bottom: 15px; }
-        strong { color: #fff; }
-
-        /* iOS Tab Navigation */
+        /* iOS Tab Navigation (3 Tabs) */
         .tab-bar {
             display: flex; background: #1e1e1e; border-top: 1px solid #333;
             padding-bottom: env(safe-area-inset-bottom);
         }
         .tab-button {
-            flex: 1; background: transparent; color: #888; border: none; padding: 10px 0; 
-            font-size: 11px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px;
+            flex: 1; background: transparent; color: #888; border: none; padding: 12px 0; 
+            font-size: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;
         }
         .tab-button.active { color: #4facfe; }
         .icon { font-size: 18px; }
@@ -54,66 +47,32 @@
 <body>
 
     <div class="content-area">
-        <!-- Pane A: Route A Map -->
+        <!-- Pane A: Route A -->
         <div id="pane-a" class="tab-content active">
             <div id="mapA" class="map-container"></div>
         </div>
 
-        <!-- Pane C: Route C Map (Final Master Plan) -->
-        <div id="pane-c-map" class="tab-content">
+        <!-- Pane B: Route B (Grand Loop) -->
+        <div id="pane-b" class="tab-content">
+            <div id="mapB" class="map-container"></div>
+        </div>
+
+        <!-- Pane C: Route C (Final Master Plan) -->
+        <div id="pane-c" class="tab-content">
             <div id="mapC" class="map-container"></div>
-        </div>
-
-        <!-- Pane EN: English Text -->
-        <div id="pane-en" class="tab-content">
-            <div class="text-pane">
-                <h2>Route A: The Final Master Plan</h2>
-                <p>Incorporating local guidance to prioritize iconic landmarks like Mont Blanc, the Lavaux Vineyards, and Yvoire while maintaining strict daily riding limits.</p>
-                
-                <h3>Day-by-Day Overview</h3>
-                <ul>
-                    <li><strong>Day 1: Queige → Val-Cenis (~135 km | 3.5 hrs):</strong> Bypasses industrial Modane to stay in Val-Cenis right at the base of the next morning's passes.</li>
-                    <li><strong>Day 2: Val-Cenis → Guillestre (~120 km | 3.5 hrs):</strong> Ascends the legendary Col du Galibier and the lunar fields of the Col d'Izoard.</li>
-                    <li><strong>Day 3: Guillestre → Susa (~95 km | 2.5 hrs):</strong> Crosses via Col de l'Échelle into Italy, providing an early afternoon arrival in Susa.</li>
-                    <li><strong>Day 4: Susa → Les Houches / Chamonix (~195 km | 3.5 hrs):</strong> Uses the Maurienne Valley bypass north to approach the Mont Blanc massif.</li>
-                    <li><strong>Day 5: Chamonix → Lavaux Vineyards → Évian (~180 km | 3.5 hrs):</strong> Crosses into Switzerland, riding the breathtaking <em>Route de la Corniche</em> balcony road through the UNESCO vineyards before returning to France.</li>
-                    <li><strong>Day 6: Évian → Yvoire → Annecy (~110 km | 2 hrs riding):</strong> Early morning departure (08:00), stopping at the medieval village of Yvoire for coffee before a direct run to Annecy by 11:30 AM.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Pane FR: French Text -->
-        <div id="pane-fr" class="tab-content">
-            <div class="text-pane">
-                <h2>Itinéraire A : Le Plan Final</h2>
-                <p>Intégrant les conseils locaux pour privilégier les sites emblématiques comme le Mont-Blanc, les vignobles de Lavaux et Yvoire, tout en respectant des limites de temps de conduite strictes.</p>
-                
-                <h3>Aperçu Jour par Jour</h3>
-                <ul>
-                    <li><strong>Jour 1 : Queige → Val-Cenis (~135 km | 3,5 h) :</strong> Évite Modane pour s'installer à Val-Cenis au pied des cols du lendemain.</li>
-                    <li><strong>Jour 2 : Val-Cenis → Guillestre (~120 km | 3,5 h) :</strong> Ascension du Col du Galibier et du Col d'Izoard.</li>
-                    <li><strong>Jour 3 : Guillestre → Susa (~95 km | 2,5 h) :</strong> Passage par le Col de l'Échelle vers l'Italie pour une arrivée matinale.</li>
-                    <li><strong>Jour 4 : Susa → Les Houches / Chamonix (~195 km | 3,5 h) :</strong> Remontée vers le massif du Mont-Blanc en contournant la Maurienne.</li>
-                    <li><strong>Jour 5 : Chamonix → Vignobles de Lavaux → Évian (~180 km | 3,5 h) :</strong> Traversée en Suisse pour emprunter la <em>Route de la Corniche</em> à travers les vignes en terrasses avant de regagner la France.</li>
-                    <li><strong>Jour 6 : Évian → Yvoire → Annecy (~110 km | 2 h) :</strong> Départ matinal (08h00), arrêt café au village médiéval d'Yvoire, puis liaison directe vers Annecy avant 11h30.</li>
-                </ul>
-            </div>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Navigation (3 Tabs) -->
     <div class="tab-bar">
         <button class="tab-button active" onclick="openTab('pane-a', this)">
             <span class="icon">🗺️</span><span>Route A</span>
         </button>
-        <button class="tab-button" onclick="openTab('pane-c-map', this)">
-            <span class="icon">🏍️</span><span>Route C</span>
+        <button class="tab-button" onclick="openTab('pane-b', this)">
+            <span class="icon">🔄</span><span>Route B</span>
         </button>
-        <button class="tab-button" onclick="openTab('pane-en', this)">
-            <span class="icon">🇬🇧</span><span>English</span>
-        </button>
-        <button class="tab-button" onclick="openTab('pane-fr', this)">
-            <span class="icon">🇫🇷</span><span>Français</span>
+        <button class="tab-button" onclick="openTab('pane-c', this)">
+            <span class="icon">⭐</span><span>Route C (Final)</span>
         </button>
     </div>
 
@@ -128,19 +87,21 @@
             
             setTimeout(() => {
                 if (tabId === 'pane-a') mapA.invalidateSize();
-                if (tabId === 'pane-c-map') mapC.invalidateSize();
+                if (tabId === 'pane-b') mapB.invalidateSize();
+                if (tabId === 'pane-c') mapC.invalidateSize();
             }, 100);
             
             setTimeout(() => {
                 if (tabId === 'pane-a') mapA.invalidateSize();
-                if (tabId === 'pane-c-map') mapC.invalidateSize();
+                if (tabId === 'pane-b') mapB.invalidateSize();
+                if (tabId === 'pane-c') mapC.invalidateSize();
             }, 400);
         }
 
         function loadRoutes(mapInstance, layerControl, routeDays, overnights) {
             routeDays.forEach(day => {
                 const dayLayer = L.layerGroup().addTo(mapInstance);
-                const label = `<span style="color: ${day.color}; margin-right: 6px; font-size: 16px;">■</span> ${day.name}`;
+                const label = `<span style="color: ${day.color}; margin-right: 6px; font-size: 14px;">■</span> ${day.name}`;
                 layerControl.addOverlay(dayLayer, label);
                 
                 const coordString = day.coords.map(c => `${c[0]},${c[1]}`).join(';');
@@ -156,7 +117,7 @@
 
             overnights.forEach(stop => {
                 L.circleMarker(stop.coords, {
-                    radius: stop.name.includes("📍") ? 9 : 6, 
+                    radius: stop.name.includes("📍") ? 8 : 5, 
                     color: '#111', 
                     fillColor: stop.name.includes("📍") ? '#ffd700' : (stop.name.includes("Saved") ? '#00ffff' : '#fff'), 
                     fillOpacity: 1, weight: 2
@@ -188,26 +149,49 @@
         ];
         loadRoutes(mapA, controlA, daysA, overnightsA);
 
-        // --- MAP C (Route C: Final Master Plan with Val-Cenis & Lavaux Detour) ---
+        // --- MAP B (Grand Southern Loop) ---
+        const mapB = L.map('mapB', { zoomControl: false }).setView([45.1, 6.8], 7);
+        L.control.zoom({ position: 'topleft' }).addTo(mapB);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(mapB);
+        const controlB = L.control.layers(null, null, { collapsed: false, position: 'topright' }).addTo(mapB);
+
+        const daysB = [
+            { name: "Day 1", color: "#e6194B", coords: [[6.46, 45.72], [6.39, 45.67], [6.38, 45.34], [6.35, 45.27], [6.43, 45.16]] },
+            { name: "Day 2", color: "#f58231", coords: [[6.43, 45.16], [6.40, 45.06], [6.63, 44.89], [6.73, 44.82], [6.65, 44.66], [6.69, 44.56], [6.65, 44.38]] },
+            { name: "Day 3", color: "#3cb44b", coords: [[6.65, 44.38], [6.93, 44.42], [7.44, 44.33], [7.49, 44.64], [7.05, 45.14]] },
+            { name: "Day 4", color: "#4363d8", coords: [[7.05, 45.14], [6.93, 45.26], [6.87, 45.28], [7.03, 45.42], [6.77, 45.62]] },
+            { name: "Day 5", color: "#911eb4", coords: [[6.77, 45.62], [6.69, 45.69], [6.57, 45.72], [6.53, 45.76], [6.42, 45.90]] },
+            { name: "Day 6", color: "#f032e6", coords: [[6.42, 45.90], [6.12, 45.90]] }
+        ];
+
+        const overnightsB = [
+            { name: "Queige", coords: [45.72, 6.46] }, { name: "Valloire", coords: [45.16, 6.43] },
+            { name: "📍 Barcelonnette", coords: [44.3867, 6.6531] }, { name: "Susa", coords: [45.14, 7.05] },
+            { name: "Bourg-St-Maurice", coords: [45.62, 6.77] }, { name: "La Clusaz", coords: [45.90, 6.42] },
+            { name: "Annecy", coords: [45.90, 6.12] }, { name: "📍 Saved (Peisey-Nancroix)", coords: [45.5767, 6.7150] } 
+        ];
+        loadRoutes(mapB, controlB, daysB, overnightsB);
+
+        // --- MAP C (Final Master Plan) ---
         const mapC = L.map('mapC', { zoomControl: false }).setView([45.3, 6.7], 7);
         L.control.zoom({ position: 'topleft' }).addTo(mapC);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(mapC);
         const controlC = L.control.layers(null, null, { collapsed: false, position: 'topright' }).addTo(mapC);
 
         const daysC = [
-            { name: "Day 1: Queige → Val-Cenis", color: "#e6194B", coords: [[6.46, 45.72], [6.57, 45.72], [6.69, 45.69], [6.77, 45.62], [6.67, 45.20], [6.98, 45.21]] },
-            { name: "Day 2: Val-Cenis → Guillestre", color: "#f58231", coords: [[6.98, 45.21], [6.67, 45.20], [6.47, 45.21], [6.41, 45.06], [6.73, 44.82], [6.65, 44.66]] },
-            { name: "Day 3: Guillestre → Susa", color: "#3cb44b", coords: [[6.65, 44.66], [6.63, 44.89], [6.66, 45.03], [6.70, 45.08], [7.05, 45.14]] },
-            { name: "Day 4: Susa → Chamonix", color: "#4363d8", coords: [[7.05, 45.14], [6.93, 45.26], [6.67, 45.20], [6.39, 45.67], [6.87, 45.92]] },
-            { name: "Day 5: Chamonix → Lavaux → Évian", color: "#911eb4", coords: [[6.87, 45.92], [7.07, 46.10], [6.65, 46.46], [6.58, 46.40]] },
-            { name: "Day 6: Évian → Yvoire → Annecy", color: "#f032e6", coords: [[6.58, 46.40], [6.32, 46.36], [6.10, 46.03], [6.12, 45.90]] }
+            { name: "Day 1: Val-Cenis", color: "#e6194B", coords: [[6.46, 45.72], [6.57, 45.72], [6.69, 45.69], [6.77, 45.62], [6.67, 45.20], [6.98, 45.21]] },
+            { name: "Day 2: Guillestre", color: "#f58231", coords: [[6.98, 45.21], [6.67, 45.20], [6.47, 45.21], [6.41, 45.06], [6.73, 44.82], [6.65, 44.66]] },
+            { name: "Day 3: Susa", color: "#3cb44b", coords: [[6.65, 44.66], [6.63, 44.89], [6.66, 45.03], [6.70, 45.08], [7.05, 45.14]] },
+            { name: "Day 4: Chamonix", color: "#4363d8", coords: [[7.05, 45.14], [6.93, 45.26], [6.67, 45.20], [6.39, 45.67], [6.87, 45.92]] },
+            { name: "Day 5: Lavaux", color: "#911eb4", coords: [[6.87, 45.92], [7.07, 46.10], [6.65, 46.46], [6.58, 46.40]] },
+            { name: "Day 6: Yvoire", color: "#f032e6", coords: [[6.58, 46.40], [6.32, 46.36], [6.10, 46.03], [6.12, 45.90]] }
         ];
 
         const overnightsC = [
             { name: "Queige (Start)", coords: [45.72, 6.46] }, { name: "Val-Cenis (Night 1)", coords: [45.21, 6.98] },
             { name: "Guillestre (Night 2)", coords: [44.66, 6.65] }, { name: "Susa (Night 3)", coords: [45.14, 7.05] },
             { name: "Chamonix (Night 4)", coords: [45.92, 6.87] }, { name: "Évian-les-Bains (Night 5)", coords: [46.40, 6.58] },
-            { name: "📍 Yvoire (Coffee Stop)", coords: [46.36, 6.32] }, { name: "Annecy (Finish Deadline)", coords: [45.90, 6.12] },
+            { name: "📍 Yvoire (Coffee)", coords: [46.36, 6.32] }, { name: "Annecy (Finish)", coords: [45.90, 6.12] },
             { name: "📍 Saved (Peisey-Nancroix)", coords: [45.5767, 6.7150] }
         ];
         loadRoutes(mapC, controlC, daysC, overnightsC);
