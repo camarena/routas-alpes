@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Alpine Moto Trip</title>
+    <title>Alpine Moto Trip - Master Plan</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -44,11 +44,11 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         .tab-button {
-            flex: 1; background: transparent; color: #888; border: none; padding: 12px 0; 
-            font-size: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px;
+            flex: 1; background: transparent; color: #888; border: none; padding: 10px 0; 
+            font-size: 11px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px;
         }
         .tab-button.active { color: #4facfe; }
-        .icon { font-size: 20px; }
+        .icon { font-size: 18px; }
     </style>
 </head>
 <body>
@@ -59,68 +59,44 @@
             <div id="mapA" class="map-container"></div>
         </div>
 
-        <!-- Pane B: Route B Map -->
-        <div id="pane-b" class="tab-content">
-            <div id="mapB" class="map-container"></div>
+        <!-- Pane C: Route C Map (Final Master Plan) -->
+        <div id="pane-c-map" class="tab-content">
+            <div id="mapC" class="map-container"></div>
         </div>
 
-        <!-- Pane C: English Text -->
-        <div id="pane-c" class="tab-content">
+        <!-- Pane EN: English Text -->
+        <div id="pane-en" class="tab-content">
             <div class="text-pane">
-                <h2>The Verdict: Route A vs. Route B</h2>
-                <p>For a pure, unforgettable motorcycle experience, <strong>Route B (The Grand Southern Loop)</strong> is the clear winner.</p>
-                <p>While Route A hits some famous landmarks, Route B offers vastly superior riding dynamics, completely eliminates backtracking, and gives you a true "expedition" feel where every single mile of asphalt is brand new. Here is a breakdown of why Route B takes the crown for fun and scenery:</p>
+                <h2>Route A: The Final Master Plan</h2>
+                <p>Incorporating local guidance to prioritize iconic landmarks like Mont Blanc, the Lavaux Vineyards, and Yvoire while maintaining strict daily riding limits.</p>
                 
-                <h3>1. The Riding Dynamics (Corners & Flow)</h3>
+                <h3>Day-by-Day Overview</h3>
                 <ul>
-                    <li><strong>Route A (The Stop-and-Go):</strong> Because Route A doubles back through the Maurienne Valley, you spend a lot of time on transit roads to get between the famous passes. The mountain climbs (like the Galibier) are spectacular, but the connecting valleys can feel like a chore.</li>
-                    <li><strong>Route B (The Rhythm):</strong> Route B provides an incredible evolution of riding styles. You get the ultra-tight, technical switchbacks of the high French Alps (Col de la Madeleine, Col de l'Iseran), the incredibly fast, flowing sweepers of the southern Ubaye Valley near Barcelonnette, and the wide-open, throttle-friendly stretches through the Italian plains. It keeps you on your toes and prevents "hairpin fatigue."</li>
+                    <li><strong>Day 1: Queige → Val-Cenis (~135 km | 3.5 hrs):</strong> Bypasses industrial Modane to stay in Val-Cenis right at the base of the next morning's passes.</li>
+                    <li><strong>Day 2: Val-Cenis → Guillestre (~120 km | 3.5 hrs):</strong> Ascends the legendary Col du Galibier and the lunar fields of the Col d'Izoard.</li>
+                    <li><strong>Day 3: Guillestre → Susa (~95 km | 2.5 hrs):</strong> Crosses via Col de l'Échelle into Italy, providing an early afternoon arrival in Susa.</li>
+                    <li><strong>Day 4: Susa → Les Houches / Chamonix (~195 km | 3.5 hrs):</strong> Uses the Maurienne Valley bypass north to approach the Mont Blanc massif.</li>
+                    <li><strong>Day 5: Chamonix → Lavaux Vineyards → Évian (~180 km | 3.5 hrs):</strong> Crosses into Switzerland, riding the breathtaking <em>Route de la Corniche</em> balcony road through the UNESCO vineyards before returning to France.</li>
+                    <li><strong>Day 6: Évian → Yvoire → Annecy (~110 km | 2 hrs riding):</strong> Early morning departure (08:00), stopping at the medieval village of Yvoire for coffee before a direct run to Annecy by 11:30 AM.</li>
                 </ul>
-
-                <h3>2. The Scenery (Visual Diversity)</h3>
-                <ul>
-                    <li><strong>Route A (The Classics):</strong> You get up close and personal with the Mont Blanc massif in Chamonix and cruise the elegant shores of Lake Geneva. It is beautiful, but the landscape stays relatively similar (lush green valleys and white peaks) for the duration of the trip.</li>
-                    <li><strong>Route B (The Shape-Shifter):</strong> This route crosses micro-climates. You start in the lush, green Beaufortain mountains, but by the time you reach Barcelonnette, the landscape transforms into the arid, rocky, sun-baked gorges of the Southern Alps (which feels almost like riding through a mountainous Provence). The next day, you cross into Italy for expansive valley views, before climbing back into the jagged, glaciated peaks of the Vanoise National Park. The visual variety is unmatched.</li>
-                </ul>
-
-                <h3>3. Traffic and Frustration</h3>
-                <ul>
-                    <li><strong>Route A:</strong> Places like Chamonix, Évian, and the northern stretches of Route A are major tourist hubs. You will likely encounter heavy traffic, slow-moving RVs, and congested roundabouts, especially around Lake Geneva.</li>
-                    <li><strong>Route B:</strong> By diving south to Barcelonnette and crossing the Col de Larche into Italy, you get much further off the beaten tourist track. The roads in the southern Alps are wider, less congested, and purpose-built for leaning into corners without a camper van ruining your line.</li>
-                </ul>
-
-                <h3>The Verdict</h3>
-                <p>Route A is a great sightseeing tour that happens to be on a motorcycle. <strong>Route B is a driver's route.</strong> It strings together some of the best riding roads in Europe into a seamless loop that respects your 3-to-4-hour daily limit while feeding you completely different scenery every morning.</p>
             </div>
         </div>
 
-        <!-- Pane D: French Text -->
-        <div id="pane-d" class="tab-content">
+        <!-- Pane FR: French Text -->
+        <div id="pane-fr" class="tab-content">
             <div class="text-pane">
-                <h2>Le Verdict : Itinéraire A vs. Itinéraire B</h2>
-                <p>Pour une expérience moto pure et inoubliable, <strong>l'Itinéraire B (La Grande Boucle Sud)</strong> est le grand gagnant.</p>
-                <p>Bien que l'Itinéraire A passe par quelques sites célèbres, l'Itinéraire B offre une dynamique de conduite nettement supérieure, élimine complètement les retours en arrière et vous donne un véritable sentiment d'"expédition" où chaque kilomètre d'asphalte est totalement nouveau. Voici pourquoi l'Itinéraire B l'emporte pour le plaisir et les paysages :</p>
+                <h2>Itinéraire A : Le Plan Final</h2>
+                <p>Intégrant les conseils locaux pour privilégier les sites emblématiques comme le Mont-Blanc, les vignobles de Lavaux et Yvoire, tout en respectant des limites de temps de conduite strictes.</p>
                 
-                <h3>1. La Dynamique de Conduite (Virages et Fluidité)</h3>
+                <h3>Aperçu Jour par Jour</h3>
                 <ul>
-                    <li><strong>Itinéraire A (Le Stop-and-Go) :</strong> Parce que l'Itinéraire A fait demi-tour par la vallée de la Maurienne, vous passez beaucoup de temps sur des routes de liaison pour relier les cols célèbres. Les montées sont spectaculaires, mais les vallées de connexion peuvent ressembler à une corvée.</li>
-                    <li><strong>Itinéraire B (Le Rythme) :</strong> L'Itinéraire B offre une évolution incroyable des styles de conduite. Vous affrontez les lacets ultra-serrés et techniques des Hautes-Alpes françaises, les grandes courbes rapides et fluides de la vallée de l'Ubaye près de Barcelonnette, et les vastes étendues des plaines italiennes. Cela vous maintient en alerte et évite la "fatigue des virages en épingle".</li>
+                    <li><strong>Jour 1 : Queige → Val-Cenis (~135 km | 3,5 h) :</strong> Évite Modane pour s'installer à Val-Cenis au pied des cols du lendemain.</li>
+                    <li><strong>Jour 2 : Val-Cenis → Guillestre (~120 km | 3,5 h) :</strong> Ascension du Col du Galibier et du Col d'Izoard.</li>
+                    <li><strong>Jour 3 : Guillestre → Susa (~95 km | 2,5 h) :</strong> Passage par le Col de l'Échelle vers l'Italie pour une arrivée matinale.</li>
+                    <li><strong>Jour 4 : Susa → Les Houches / Chamonix (~195 km | 3,5 h) :</strong> Remontée vers le massif du Mont-Blanc en contournant la Maurienne.</li>
+                    <li><strong>Jour 5 : Chamonix → Vignobles de Lavaux → Évian (~180 km | 3,5 h) :</strong> Traversée en Suisse pour emprunter la <em>Route de la Corniche</em> à travers les vignes en terrasses avant de regagner la France.</li>
+                    <li><strong>Jour 6 : Évian → Yvoire → Annecy (~110 km | 2 h) :</strong> Départ matinal (08h00), arrêt café au village médiéval d'Yvoire, puis liaison directe vers Annecy avant 11h30.</li>
                 </ul>
-
-                <h3>2. Les Paysages (Diversité Visuelle)</h3>
-                <ul>
-                    <li><strong>Itinéraire A (Les Classiques) :</strong> Vous vous approchez au plus près du massif du Mont-Blanc à Chamonix et parcourez les rives élégantes du lac Léman. C'est magnifique, mais le paysage reste relativement similaire (vallées verdoyantes et sommets enneigés) pendant tout le voyage.</li>
-                    <li><strong>Itinéraire B (Le Métamorphe) :</strong> Cet itinéraire traverse des microclimats. Vous commencez dans des montagnes verdoyantes, mais au moment où vous atteignez Barcelonnette, le paysage se transforme en gorges arides, rocheuses et baignées de soleil des Alpes du Sud. Le lendemain, vous entrez en Italie avec des vues imprenables sur les vallées, avant de remonter vers des sommets glaciaires et déchiquetés. La variété visuelle est inégalée.</li>
-                </ul>
-
-                <h3>3. Trafic et Frustrations</h3>
-                <ul>
-                    <li><strong>Itinéraire A :</strong> Des endroits comme Chamonix, Évian et les tronçons nord sont des pôles touristiques majeurs. Vous rencontrerez probablement un trafic dense, des camping-cars lents et des ronds-points encombrés, surtout autour du lac Léman.</li>
-                    <li><strong>Itinéraire B :</strong> En plongeant vers le sud jusqu'à Barcelonnette et en traversant vers l'Italie, vous vous éloignez beaucoup plus des sentiers touristiques battus. Les routes des Alpes du Sud sont plus larges, moins congestionnées et conçues pour se pencher dans les virages sans qu'un camping-car ne gâche votre trajectoire.</li>
-                </ul>
-
-                <h3>Conclusion</h3>
-                <p>L'Itinéraire A est un excellent circuit touristique qui se fait à moto. <strong>L'Itinéraire B est un itinéraire de pilote.</strong> Il relie certaines des meilleures routes d'Europe en une boucle continue qui respecte votre limite quotidienne tout en vous offrant des paysages complètement différents chaque matin.</p>
             </div>
         </div>
     </div>
@@ -130,13 +106,13 @@
         <button class="tab-button active" onclick="openTab('pane-a', this)">
             <span class="icon">🗺️</span><span>Route A</span>
         </button>
-        <button class="tab-button" onclick="openTab('pane-b', this)">
-            <span class="icon">🏔️</span><span>Route B</span>
+        <button class="tab-button" onclick="openTab('pane-c-map', this)">
+            <span class="icon">🏍️</span><span>Route C</span>
         </button>
-        <button class="tab-button" onclick="openTab('pane-c', this)">
+        <button class="tab-button" onclick="openTab('pane-en', this)">
             <span class="icon">🇬🇧</span><span>English</span>
         </button>
-        <button class="tab-button" onclick="openTab('pane-d', this)">
+        <button class="tab-button" onclick="openTab('pane-fr', this)">
             <span class="icon">🇫🇷</span><span>Français</span>
         </button>
     </div>
@@ -150,15 +126,14 @@
             document.getElementById(tabId).classList.add('active');
             btnElement.classList.add('active');
             
-            // Force rendering refresh for mobile Safari
             setTimeout(() => {
                 if (tabId === 'pane-a') mapA.invalidateSize();
-                if (tabId === 'pane-b') mapB.invalidateSize();
+                if (tabId === 'pane-c-map') mapC.invalidateSize();
             }, 100);
             
             setTimeout(() => {
                 if (tabId === 'pane-a') mapA.invalidateSize();
-                if (tabId === 'pane-b') mapB.invalidateSize();
+                if (tabId === 'pane-c-map') mapC.invalidateSize();
             }, 400);
         }
 
@@ -193,7 +168,6 @@
         const mapA = L.map('mapA', { zoomControl: false }).setView([45.2, 6.8], 7);
         L.control.zoom({ position: 'topleft' }).addTo(mapA);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(mapA);
-        // Explicitly uncollapsed for mobile visibility
         const controlA = L.control.layers(null, null, { collapsed: false, position: 'topright' }).addTo(mapA);
 
         const daysA = [
@@ -214,29 +188,29 @@
         ];
         loadRoutes(mapA, controlA, daysA, overnightsA);
 
-        // --- MAP B ---
-        const mapB = L.map('mapB', { zoomControl: false }).setView([45.1, 6.8], 7);
-        L.control.zoom({ position: 'topleft' }).addTo(mapB);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(mapB);
-        // Explicitly uncollapsed for mobile visibility
-        const controlB = L.control.layers(null, null, { collapsed: false, position: 'topright' }).addTo(mapB);
+        // --- MAP C (Route C: Final Master Plan with Val-Cenis & Lavaux Detour) ---
+        const mapC = L.map('mapC', { zoomControl: false }).setView([45.3, 6.7], 7);
+        L.control.zoom({ position: 'topleft' }).addTo(mapC);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(mapC);
+        const controlC = L.control.layers(null, null, { collapsed: false, position: 'topright' }).addTo(mapC);
 
-        const daysB = [
-            { name: "Day 1", color: "#e6194B", coords: [[6.46, 45.72], [6.39, 45.67], [6.38, 45.34], [6.35, 45.27], [6.43, 45.16]] },
-            { name: "Day 2", color: "#f58231", coords: [[6.43, 45.16], [6.40, 45.06], [6.63, 44.89], [6.73, 44.82], [6.65, 44.66], [6.69, 44.56], [6.65, 44.38]] },
-            { name: "Day 3", color: "#3cb44b", coords: [[6.65, 44.38], [6.93, 44.42], [7.44, 44.33], [7.49, 44.64], [7.05, 45.14]] },
-            { name: "Day 4", color: "#4363d8", coords: [[7.05, 45.14], [6.93, 45.26], [6.87, 45.28], [7.03, 45.42], [6.77, 45.62]] },
-            { name: "Day 5", color: "#911eb4", coords: [[6.77, 45.62], [6.69, 45.69], [6.57, 45.72], [6.53, 45.76], [6.42, 45.90]] },
-            { name: "Day 6", color: "#f032e6", coords: [[6.42, 45.90], [6.12, 45.90]] }
+        const daysC = [
+            { name: "Day 1: Queige → Val-Cenis", color: "#e6194B", coords: [[6.46, 45.72], [6.57, 45.72], [6.69, 45.69], [6.77, 45.62], [6.67, 45.20], [6.98, 45.21]] },
+            { name: "Day 2: Val-Cenis → Guillestre", color: "#f58231", coords: [[6.98, 45.21], [6.67, 45.20], [6.47, 45.21], [6.41, 45.06], [6.73, 44.82], [6.65, 44.66]] },
+            { name: "Day 3: Guillestre → Susa", color: "#3cb44b", coords: [[6.65, 44.66], [6.63, 44.89], [6.66, 45.03], [6.70, 45.08], [7.05, 45.14]] },
+            { name: "Day 4: Susa → Chamonix", color: "#4363d8", coords: [[7.05, 45.14], [6.93, 45.26], [6.67, 45.20], [6.39, 45.67], [6.87, 45.92]] },
+            { name: "Day 5: Chamonix → Lavaux → Évian", color: "#911eb4", coords: [[6.87, 45.92], [7.07, 46.10], [6.65, 46.46], [6.58, 46.40]] },
+            { name: "Day 6: Évian → Yvoire → Annecy", color: "#f032e6", coords: [[6.58, 46.40], [6.32, 46.36], [6.10, 46.03], [6.12, 45.90]] }
         ];
 
-        const overnightsB = [
-            { name: "Queige", coords: [45.72, 6.46] }, { name: "Valloire", coords: [45.16, 6.43] },
-            { name: "📍 Barcelonnette", coords: [44.3867, 6.6531] }, { name: "Susa", coords: [45.14, 7.05] },
-            { name: "Bourg-St-Maurice", coords: [45.62, 6.77] }, { name: "La Clusaz", coords: [45.90, 6.42] },
-            { name: "Annecy", coords: [45.90, 6.12] }, { name: "📍 Saved (Peisey-Nancroix)", coords: [45.5767, 6.7150] } 
+        const overnightsC = [
+            { name: "Queige (Start)", coords: [45.72, 6.46] }, { name: "Val-Cenis (Night 1)", coords: [45.21, 6.98] },
+            { name: "Guillestre (Night 2)", coords: [44.66, 6.65] }, { name: "Susa (Night 3)", coords: [45.14, 7.05] },
+            { name: "Chamonix (Night 4)", coords: [45.92, 6.87] }, { name: "Évian-les-Bains (Night 5)", coords: [46.40, 6.58] },
+            { name: "📍 Yvoire (Coffee Stop)", coords: [46.36, 6.32] }, { name: "Annecy (Finish Deadline)", coords: [45.90, 6.12] },
+            { name: "📍 Saved (Peisey-Nancroix)", coords: [45.5767, 6.7150] }
         ];
-        loadRoutes(mapB, controlB, daysB, overnightsB);
+        loadRoutes(mapC, controlC, daysC, overnightsC);
     </script>
 </body>
 </html>
